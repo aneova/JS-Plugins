@@ -68,22 +68,26 @@ $.modal = function(options)
             $modal.classList.add("hide");
 
             setTimeout(()=>{
-                $modal.classList.remove("open")
+                $modal.classList.remove("hide");
                 closing = false;
             }, ANIMATION_SPEED)
         }
-    }
+    };
 
     const listener = event=>{
-        if(event.target.dataset.close) modal.close()
-    }
+        if(event.target.dataset.close) {
+            modal.close();
+        }
+    };
 
-    $modal.addEventListener('click', listener)
+    $modal.addEventListener('click', listener);
 
     return Object.assign(modal,{
         destroy(){
-            $modal.parentNode.removeChild($modal)
-            $modal.parentNode.removeEventListener(listener)
+            console.log(listener);
+            // console.log($modal);
+            $modal.parentNode.removeEventListener('click',listener);
+            $modal.parentNode.removeChild($modal);
             destroyed = true
         },
         setContent(html){
